@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.context.ApplicationContext;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
@@ -20,7 +21,7 @@ public class HomeServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ClientService clientService = ClientService.getInstance();
+	private ClientService clientService = ApplicationContext;
 	private VehicleService vehicleService = VehicleService.getInstance();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
