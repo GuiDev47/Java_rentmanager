@@ -29,6 +29,7 @@ public class VehicleService {
 	
 	public long create(Vehicle vehicle) throws ServiceException {
 		// TODO: créer un véhicule
+		//Appelle le DAO pour ajouter dans la base SQL
 		return 0;
 	}
 

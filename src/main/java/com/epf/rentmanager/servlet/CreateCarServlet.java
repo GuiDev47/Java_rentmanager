@@ -24,7 +24,16 @@ public class CreateCarServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
+		try {
+
+			//vehicleService.add
+		} catch (ServiceException e) {
+			throw new RuntimeException();
+		}
 	}
 }
