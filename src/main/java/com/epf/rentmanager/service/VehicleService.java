@@ -8,22 +8,16 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.VehicleDao;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VehicleService {
 
 	private VehicleDao vehicleDao;
-	public static VehicleService instance;
 	
-	private VehicleService() {
-		this.vehicleDao = VehicleDao.getInstance();
-	}
-	
-	public static VehicleService getInstance() {
-		if (instance == null) {
-			instance = new VehicleService();
-		}
-		
-		return instance;
+	private VehicleService(VehicleDao vehicleDao) {
+		this.vehicleDao = vehicleDao;
 	}
 	
 	
@@ -36,7 +30,7 @@ public class VehicleService {
 	public Vehicle findById(long id) throws ServiceException {
 		// TODO: récupérer un véhicule par son id
 		try{
-			return VehicleDao.getInstance().findById(id);
+			return vehicleDao.findById(id);
 		}catch(DaoException e){
 			e.printStackTrace();
 			throw new ServiceException();
@@ -47,7 +41,7 @@ public class VehicleService {
 	public List<Vehicle> findAll() throws ServiceException {
 		// TODO: récupérer tous les clients
 		try{
-			return VehicleDao.getInstance().findAll();
+			return vehicleDao.findAll();
 		}catch(DaoException e){
 			e.printStackTrace();
 			throw new ServiceException();
@@ -56,7 +50,7 @@ public class VehicleService {
 
 	public int count() throws ServiceException{
 		try{
-			return VehicleDao.getInstance().count();
+			return vehicleDao.count();
 		}catch(DaoException e){
 			e.printStackTrace();
 			throw new ServiceException();

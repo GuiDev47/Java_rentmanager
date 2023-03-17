@@ -17,8 +17,7 @@ public class ClientService {
 	private ClientService(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}
-	
-	
+
 	public long create(Client client) throws ServiceException {
 		try{
 			return clientDao.create(client);

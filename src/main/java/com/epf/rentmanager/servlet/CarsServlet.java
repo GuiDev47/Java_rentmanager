@@ -18,7 +18,7 @@ public class CarsServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private VehicleService vehicleService = VehicleService.getInstance();
+	private VehicleService vehicleService;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
