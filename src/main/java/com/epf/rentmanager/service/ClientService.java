@@ -38,7 +38,6 @@ public class ClientService {
 
 	public Client findById(long id) throws ServiceException {
 
-		// TODO: récupérer un client par son id
 		try{
 			return clientDao.findById(id);
 		}catch(DaoException e){
