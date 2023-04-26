@@ -21,8 +21,12 @@ public class ReservationService {
 	
 	
 	public long create(Reservation reservation) throws ServiceException {
-
-		return 0;
+		try{
+			return reservationDao.create(reservation);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
 	}
 
 	public Reservation findById(long id) throws ServiceException {

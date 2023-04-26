@@ -2,6 +2,7 @@ com\epf\rentmanager\servlet\UserDetailsServlet.class
 com\epf\rentmanager\Configuration\AppConfiguration.class
 com\epf\rentmanager\model\Reservation.class
 com\epf\rentmanager\Exception\DaoException.class
+com\epf\rentmanager\servlet\RentCreateServlet.class
 com\epf\rentmanager\service\VehicleService.class
 com\epf\rentmanager\Main\Main.class
 com\epf\rentmanager\persistence\ConnectionManager.class

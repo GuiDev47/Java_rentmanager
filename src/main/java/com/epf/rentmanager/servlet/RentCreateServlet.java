@@ -2,7 +2,10 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.service.ClientService;
+import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -15,8 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-@WebServlet("/cars/create")
+@WebServlet("/rents/create")
 public class RentCreateServlet extends HttpServlet {
 
 	/**
@@ -27,6 +32,10 @@ public class RentCreateServlet extends HttpServlet {
 	ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 	@Autowired
 	VehicleService vehicleService;
+	@Autowired
+	ClientService clientService;
+	@Autowired
+	ReservationService reservationService;
 
 
 	@Override
@@ -37,19 +46,28 @@ public class RentCreateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-			this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+		try{
+			request.setAttribute("vehicles", vehicleService.findAll());
+			request.setAttribute("clients", clientService.findAll());
+		}catch(Exception e){
+			throw new RuntimeException();
+		}
+		finally {
+			this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		Vehicle vehicle = new Vehicle(request.getParameter("manufacturer"), Integer.parseInt(request.getParameter("seats")));
-		System.out.println("premier ok");
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+		Reservation resa = new Reservation(Long.parseLong(request.getParameter("client")), Long.parseLong(request.getParameter("car")), LocalDate.parse(request.getParameter("begin"),formatter), LocalDate.parse(request.getParameter("end"),formatter));
+
 		try{
-			vehicleService.create(vehicle);
+			reservationService.create(resa);
 		}catch (ServiceException e) {
-			System.out.println("okkkkokokokok");
 			e.printStackTrace();
 		}
-		response.sendRedirect("/rentmanager/cars");
+		response.sendRedirect("/rentmanager/rents");
 	}
 
 
