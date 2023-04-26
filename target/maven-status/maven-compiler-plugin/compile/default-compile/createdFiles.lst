@@ -7,6 +7,7 @@ com\epf\rentmanager\service\VehicleService.class
 com\epf\rentmanager\Main\Main.class
 com\epf\rentmanager\persistence\ConnectionManager.class
 com\epf\rentmanager\dao\ReservationDao.class
+com\epf\rentmanager\servlet\RentDeleteServlet.class
 com\epf\rentmanager\servlet\UserCreateServlet.class
 com\epf\rentmanager\model\Vehicle.class
 com\epf\rentmanager\servlet\HomeServlet.class
@@ -15,6 +16,7 @@ com\epf\rentmanager\servlet\RentServlet.class
 com\epf\rentmanager\servlet\CarCreateServlet.class
 com\epf\rentmanager\Exception\ServiceException.class
 com\epf\rentmanager\Configuration\WebConfiguration.class
+com\epf\rentmanager\servlet\CarDeleteServlet.class
 com\epf\rentmanager\service\ReservationService.class
 com\epf\rentmanager\utils\IOUtils.class
 com\epf\rentmanager\persistence\FillDatabase.class

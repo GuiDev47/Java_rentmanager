@@ -28,7 +28,7 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
-		
+	private static final String FIND_RESERVATION_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation WHERE id=?;";
 	public long create(Reservation reservation) throws DaoException {
 		try{
 			Connection connection = ConnectionManager.getConnection();
@@ -78,6 +78,33 @@ public class ReservationDao {
 		}
 	}
 
+	public Reservation findById(long id) throws DaoException {
+		try{
+			Connection connection= ConnectionManager.getConnection();
+
+			PreparedStatement stat = connection.prepareStatement(FIND_RESERVATION_QUERY);
+			stat.setLong(1, id);
+
+			ResultSet rs = stat.executeQuery();
+
+			rs.next();
+
+			int client_id = rs.getInt("client_id");
+			int vehicle_id = rs.getInt("vehicle_id");
+
+			connection.close();
+
+			return (new Reservation(id, client_id, vehicle_id));
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
+
+
+	}
+
 	
 	public List<Reservation> findResaByClientId(long clientId) throws DaoException {
 		List<Reservation> reservationsByClientId = new ArrayList<Reservation>();
@@ -85,7 +112,7 @@ public class ReservationDao {
 		try {
 			Connection connection = ConnectionManager.getConnection();
 
-			PreparedStatement stat = connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY);
+			PreparedStatement stat = connection.prepareStatement(FIND_RESERVATIONS_BY_CLIENT_QUERY);
 			stat.setLong(1, clientId);
 			ResultSet rs = stat.executeQuery();
 

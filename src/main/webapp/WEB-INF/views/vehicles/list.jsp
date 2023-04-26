@@ -43,13 +43,13 @@
                                     <td>${vehicle.nb_places}</td>
 
                                     <td>
-                                        <a class="btn btn-primary disabled" href="${pageContext.request.contextPath}/cars/details?id=${vehicle.ID}">
+                                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/details?id=${vehicle.ID}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="${pageContext.request.contextPath}/cars/update?id=${vehicle.ID}">
+                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/cars/update?id=${vehicle.ID}">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger disabled" href="${pageContext.request.contextPath}/cars/delete?id=${vehicle.ID}">
+                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/cars/delete?id=${vehicle.ID}">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>

@@ -29,8 +29,21 @@ public class ReservationService {
 		}
 	}
 
+	public long delete(Reservation reservation) throws ServiceException {
+		try{
+			return reservationDao.delete(reservation);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
 	public Reservation findById(long id) throws ServiceException {
-		return null;
+		try{
+			return reservationDao.findById(id);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
 	}
 
 	public List<Reservation> findAll() throws ServiceException {
