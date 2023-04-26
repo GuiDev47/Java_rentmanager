@@ -49,13 +49,13 @@
                                     <td>${resa.debut}</td>
                                     <td>${resa.fin}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="car-detail.html">
+                                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/create?id=${resa.ID}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success" href="#">
+                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/cars/update?id=${resa.ID}">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger" href="#">
+                                        <a class="btn btn-danger" href="${pageContext.request.contextPath}/cars/delete?id=${resa.ID}">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
