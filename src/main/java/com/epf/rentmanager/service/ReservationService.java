@@ -38,5 +38,26 @@ public class ReservationService {
 			throw new ServiceException();
 		}
 	}
+
+	public List<Reservation> findResaByClientId(long clientId) throws ServiceException{
+		try{
+			return reservationDao.findResaByClientId(clientId);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+
+	public List<Reservation> findResaByVehicleId(long vehicleId) throws ServiceException{
+		try{
+			return reservationDao.findResaByVehicleId(vehicleId);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+
+
+
 	
 }

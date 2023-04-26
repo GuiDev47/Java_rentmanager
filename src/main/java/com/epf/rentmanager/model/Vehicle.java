@@ -5,11 +5,15 @@ public class Vehicle {
     private String constructeur;
     private int nb_places;
     public Vehicle(){
-
     }
 
     public Vehicle(long ID, String constructeur, int nb_places) {
         this.ID= ID;
+        this.constructeur = constructeur;
+        this.nb_places = nb_places;
+    }
+
+    public Vehicle(String constructeur, int nb_places) {
         this.constructeur = constructeur;
         this.nb_places = nb_places;
     }

@@ -2,6 +2,7 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
@@ -29,6 +30,13 @@ public class UserDetailsServlet extends HttpServlet {
 	@Autowired
 	ClientService clientService;
 
+	@Autowired
+	ReservationService reservationService;
+
+	@Autowired
+	VehicleService vehicleService;
+
+
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -41,6 +49,10 @@ public class UserDetailsServlet extends HttpServlet {
 		try {
 			long id = Long.parseLong(request.getParameter("id"));
 			request.setAttribute("client", clientService.findById(id));
+			System.out.println("ok");
+			request.setAttribute("reservations", reservationService.findResaByClientId(id));
+			System.out.println("ok");
+			request.setAttribute("vehicles", vehicleService.findVehicleByClientId(id));
 		} catch (ServiceException e) {
 			throw new RuntimeException();
 		}

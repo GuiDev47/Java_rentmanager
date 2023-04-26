@@ -5,6 +5,7 @@ import java.util.List;
 import com.epf.rentmanager.Exception.DaoException;
 import com.epf.rentmanager.Exception.ServiceException;
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.VehicleDao;
@@ -22,13 +23,24 @@ public class VehicleService {
 	
 	
 	public long create(Vehicle vehicle) throws ServiceException {
-		// TODO: créer un véhicule
-		//Appelle le DAO pour ajouter dans la base SQL
-		return 0;
+		try{
+			return vehicleDao.create(vehicle);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+
+	public long delete(Vehicle vehicle) throws ServiceException {
+		try{
+			return vehicleDao.delete(vehicle);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
 	}
 
 	public Vehicle findById(long id) throws ServiceException {
-		// TODO: récupérer un véhicule par son id
 		try{
 			return vehicleDao.findById(id);
 		}catch(DaoException e){
@@ -56,5 +68,15 @@ public class VehicleService {
 			throw new ServiceException();
 		}
 	}
+
+	public List<Vehicle> findVehicleByClientId(long clientId) throws ServiceException{
+		try{
+			return vehicleDao.findVehicleByClientId(clientId);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+
 	
 }

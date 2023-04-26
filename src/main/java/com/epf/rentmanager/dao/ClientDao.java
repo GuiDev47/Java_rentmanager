@@ -2,6 +2,7 @@ package com.epf.rentmanager.dao;
 
 import com.epf.rentmanager.Exception.DaoException;
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import org.springframework.stereotype.Repository;
 
@@ -19,8 +20,6 @@ public class ClientDao {
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
-	//Utiliser un PreparedStatement et pas un Statement, et utiliser le ? pour injecter un ID
-
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	
 	public long create(Client client) throws DaoException {
@@ -139,5 +138,7 @@ public class ClientDao {
 
 		return cpt;
 	}
+
+
 
 }

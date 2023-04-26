@@ -1,17 +1,15 @@
 package com.epf.rentmanager.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.epf.rentmanager.Exception.DaoException;
+import com.epf.rentmanager.Exception.ServiceException;
 import com.epf.rentmanager.model.Client;
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import org.springframework.stereotype.Repository;
@@ -25,13 +23,52 @@ public class VehicleDao {
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
-	
+	private static final String FIND_RESERVATIONS_VEHICLE_BY_CLIENT_QUERY = "SELECT * FROM Reservation INNER JOIN Vehicle ON Reservation.vehicle_id = Vehicle.id WHERE client_id=?;";
 	public long create(Vehicle vehicle) throws DaoException {
-		return 0;
+		try{
+			Connection connection = ConnectionManager.getConnection();
+
+			PreparedStatement ps = connection.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, vehicle.getConstructeur());
+			ps.setInt(2, vehicle.getNb_places());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			int id = rs.getInt(1);
+
+			ps.close();;
+			connection.close();
+
+			return id;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 
 	public long delete(Vehicle vehicle) throws DaoException {
-		return 0;
+		try{
+			Connection connection = ConnectionManager.getConnection();
+
+			PreparedStatement ps = connection.prepareStatement(DELETE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, vehicle.getID());
+			long id=vehicle.getID();
+
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+
+			rs.next();
+
+			ps.close();
+			connection.close();
+
+			return id;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 
 	public Vehicle findById(long id) throws DaoException {
@@ -90,6 +127,28 @@ public class VehicleDao {
 		int cpt = findAll().size();
 
 		return cpt;
+	}
+
+	public List<Vehicle> findVehicleByClientId(long clientId) throws DaoException {
+		List<Vehicle> CarsByClientId = new ArrayList<Vehicle>();
+
+		try {
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement stmt = connection.prepareStatement(FIND_RESERVATIONS_VEHICLE_BY_CLIENT_QUERY);
+			stmt.setLong(1, clientId);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Vehicle car = new Vehicle(rs.getLong("id"),
+						rs.getString("constructeur"),
+						rs.getInt("nb_places"));
+
+				CarsByClientId.add(car);
+			}
+			connection.close();
+			return CarsByClientId;
+		} catch (SQLException e) {
+			throw new DaoException();
+		}
 	}
 	
 

@@ -2,6 +2,7 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/cars/create")
-public class CreateCarServlet extends HttpServlet {
+public class CarCreateServlet extends HttpServlet {
 
 	/**
 	 *
@@ -28,10 +29,7 @@ public class CreateCarServlet extends HttpServlet {
 	ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 	@Autowired
 	VehicleService vehicleService;
-	@Autowired
-	ClientService clientService;
-	@Autowired
-	ReservationService reservationService;
+
 
 	@Override
 	public void init() throws ServletException {
@@ -42,6 +40,18 @@ public class CreateCarServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Vehicle vehicle = new Vehicle(request.getParameter("manufacturer"), Integer.parseInt(request.getParameter("seats")));
+		System.out.println("premier ok");
+		try{
+			vehicleService.create(vehicle);
+		}catch (ServiceException e) {
+			System.out.println("okkkkokokokok");
+			e.printStackTrace();
+		}
+		response.sendRedirect("/rentmanager/cars");
 	}
 
 
