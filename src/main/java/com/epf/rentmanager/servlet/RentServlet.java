@@ -2,6 +2,7 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
+import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,10 @@ public class RentServlet extends HttpServlet {
 	ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 	@Autowired
 	ReservationService reservationService;
+	@Autowired
+	VehicleService vehicleService;
+	@Autowired
+	ClientService clientService;
 
 	@Override
 	public void init() throws ServletException {
@@ -38,6 +43,8 @@ public class RentServlet extends HttpServlet {
 
 		try {
 			request.setAttribute("resas", reservationService.findAll());
+			request.setAttribute("cars", vehicleService.findAll());
+			request.setAttribute("clients", clientService.findAll());
 		} catch (ServiceException e) {
 			throw new RuntimeException();
 		}

@@ -36,18 +36,26 @@
                                 </tr>
                                 <c:forEach items="${resas}" var="resa">
                                     <td>${resa.ID}.</td>
-                                    <td>${resa.vehicle_id}</td>
-                                    <td>${resa.client_id}</td>
+                                    <c:forEach items="${cars}" var="car">
+                                        <c:if test="${resa.vehicle_id eq car.ID}">
+                                            <td>${car.constructeur}</td>
+                                        </c:if>
+                                    </c:forEach>
+                                    <c:forEach items="${clients}" var="client">
+                                        <c:if test="${resa.client_id eq client.ID}">
+                                            <td>${client.prenom} ${client.nom}</td>
+                                        </c:if>
+                                    </c:forEach>
                                     <td>${resa.debut}</td>
                                     <td>${resa.fin}</td>
                                     <td>
-                                        <a class="btn btn-primary disabled" href="car-detail.html">
+                                        <a class="btn btn-primary" href="car-detail.html">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="#">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger disabled" href="#">
+                                        <a class="btn btn-danger" href="#">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
