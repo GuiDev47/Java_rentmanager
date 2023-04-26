@@ -30,11 +30,52 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 		
 	public long create(Reservation reservation) throws DaoException {
-		return 0;
+		try{
+			Connection connection = ConnectionManager.getConnection();
+
+			PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, reservation.getClient_id());
+			ps.setString(2, reservation.getVehicle_id());
+			ps.setDate(3, reservation.getDebut());
+			ps.setDate(4, reservation.getFin());
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+			rs.next();
+			int id = rs.getInt(1);
+
+			ps.close();;
+			connection.close();
+
+			return id;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 	
 	public long delete(Reservation reservation) throws DaoException {
-		return 0;
+		try{
+			Connection connection = ConnectionManager.getConnection();
+
+			PreparedStatement ps = connection.prepareStatement(DELETE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
+			ps.setLong(1, reservation.getID());
+			long id=reservation.getID();
+
+			ps.execute();
+			ResultSet rs = ps.getGeneratedKeys();
+
+			rs.next();
+
+			ps.close();
+			connection.close();
+
+			return id;
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 
 	
