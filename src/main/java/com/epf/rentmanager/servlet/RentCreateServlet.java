@@ -2,7 +2,7 @@ package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
-import com.epf.rentmanager.service.ReservationService;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/rents")
-public class RentServlet extends HttpServlet {
+@WebServlet("/cars/create")
+public class RentCreateServlet extends HttpServlet {
 
 	/**
 	 *
@@ -26,7 +26,8 @@ public class RentServlet extends HttpServlet {
 
 	ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);
 	@Autowired
-	ReservationService reservationService;
+	VehicleService vehicleService;
+
 
 	@Override
 	public void init() throws ServletException {
@@ -36,16 +37,21 @@ public class RentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		try {
-			request.setAttribute("resas", reservationService.findAll());
-		} catch (ServiceException e) {
-			throw new RuntimeException();
-		}
-		finally {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
-		}
-
+			this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
 	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		Vehicle vehicle = new Vehicle(request.getParameter("manufacturer"), Integer.parseInt(request.getParameter("seats")));
+		System.out.println("premier ok");
+		try{
+			vehicleService.create(vehicle);
+		}catch (ServiceException e) {
+			System.out.println("okkkkokokokok");
+			e.printStackTrace();
+		}
+		response.sendRedirect("/rentmanager/cars");
+	}
+
+
+
 }
-
-
