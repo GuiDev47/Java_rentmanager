@@ -119,11 +119,10 @@ public class ReservationDao {
 			while (rs.next()) {
 
 				long id = rs.getLong("id");
-				long client_id = rs.getLong("client_id");
 				//String modele = rs.getString("prenom");
 				long vehicle_id = rs.getLong("vehicle_id");
 
-				reservationsByClientId.add(new Reservation(id, client_id, vehicle_id));
+				reservationsByClientId.add(new Reservation(id, clientId, vehicle_id));
 			}
 
 
@@ -151,9 +150,9 @@ public class ReservationDao {
 				long id = rs.getLong("id");
 				long client_id = rs.getLong("client_id");
 				//String modele = rs.getString("prenom");
-				long vehicle_id = rs.getLong("vehicle_id");
 
-				reservationsByVehicleId.add(new Reservation(id, client_id, vehicle_id));
+
+				reservationsByVehicleId.add(new Reservation(id, client_id, vehicleId));
 			}
 
 
@@ -190,5 +189,12 @@ public class ReservationDao {
 			throw new DaoException();
 		}
 		return reservations;
+	}
+
+	public int count() throws DaoException{
+
+		int cpt = findAll().size();
+
+		return cpt;
 	}
 }

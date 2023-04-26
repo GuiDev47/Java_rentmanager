@@ -24,10 +24,10 @@
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Reservation(s)</b> <a class="pull-right">${reservations.size()}</a>
+                                    <b>Reservation(s)</b> <a class="pull-right">${resas.size()}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Voiture(s)</b> <a class="pull-right">${vehicles.size()}</a>
+                                    <b>Voiture(s)</b> <a class="pull-right">${cars.size()}</a>
                                 </li>
                             </ul>
                         </div>
@@ -52,10 +52,14 @@
                                             <th>Date de debut</th>
                                             <th>Date de fin</th>
                                         </tr>
-                                        <c:forEach items="${reservations}" var="resa">
+                                        <c:forEach items="${resas}" var="resa">
                                             <tr>
                                                 <td>${resa.ID}</td>
-                                                <td>${resa.vehicle_id}</td>
+                                                <c:forEach items="${cars}" var="car">
+                                                    <c:if test="${resa.vehicle_id eq car.ID}">
+                                                        <td>${car.constructeur}</td>
+                                                    </c:if>
+                                                </c:forEach>
                                                 <td>${resa.debut}</td>
                                                 <td>${resa.fin}</td>
                                             </tr>
@@ -74,10 +78,10 @@
                                             <th>Constructeur</th>
                                             <th style=>Nombre de places</th>
                                         </tr>
-                                        <c:forEach items="${vehicles}" var="car">
+                                        <c:forEach items="${cars}" var="car">
                                             <tr>
                                                 <td>${car.ID}</td>
-                                                <td>Non renseigné</td>
+                                                <td>Inconnu</td>
                                                 <td>${car.constructeur}</td>
                                                 <td>${car.nb_places}</td>
                                             </tr>

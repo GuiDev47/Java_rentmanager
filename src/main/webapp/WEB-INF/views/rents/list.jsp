@@ -34,7 +34,9 @@
                                     <th>Fin</th>
                                     <th>Action</th>
                                 </tr>
+
                                 <c:forEach items="${resas}" var="resa">
+                                <tr>
                                     <td>${resa.ID}.</td>
                                     <c:forEach items="${cars}" var="car">
                                         <c:if test="${resa.vehicle_id eq car.ID}">

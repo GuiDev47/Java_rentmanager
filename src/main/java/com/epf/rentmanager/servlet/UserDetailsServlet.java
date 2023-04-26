@@ -49,8 +49,9 @@ public class UserDetailsServlet extends HttpServlet {
 		try {
 			long id = Long.parseLong(request.getParameter("id"));
 			request.setAttribute("client", clientService.findById(id));
-			request.setAttribute("reservations", reservationService.findResaByClientId(id));
-			request.setAttribute("vehicles", vehicleService.findVehicleByClientId(id));
+			request.setAttribute("resas", reservationService.findResaByClientId(id));
+			request.setAttribute("cars", vehicleService.findVehicleByClientId(id));
+			System.out.println(vehicleService.findVehicleByClientId(id));
 		} catch (ServiceException e) {
 			throw new RuntimeException();
 		}

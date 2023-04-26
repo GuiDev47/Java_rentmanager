@@ -138,7 +138,7 @@ public class VehicleDao {
 			stmt.setLong(1, clientId);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				Vehicle car = new Vehicle(rs.getLong("id"),
+				Vehicle car = new Vehicle(rs.getLong("vehicle_id"),
 						rs.getString("constructeur"),
 						rs.getInt("nb_places"));
 
