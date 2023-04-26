@@ -34,10 +34,10 @@ public class ReservationDao {
 			Connection connection = ConnectionManager.getConnection();
 
 			PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, reservation.getClient_id());
-			ps.setString(2, reservation.getVehicle_id());
-			ps.setDate(3, reservation.getDebut());
-			ps.setDate(4, reservation.getFin());
+			ps.setLong(1, reservation.getClient_id());
+			ps.setLong(2, reservation.getVehicle_id());
+			ps.setDate(3, Date.valueOf(reservation.getDebut()));
+			ps.setDate(4, Date.valueOf(reservation.getFin()));
 			ps.execute();
 			ResultSet rs = ps.getGeneratedKeys();
 			rs.next();

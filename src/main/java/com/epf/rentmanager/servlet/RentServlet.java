@@ -42,7 +42,7 @@ public class RentServlet extends HttpServlet {
 			throw new RuntimeException();
 		}
 		finally {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/list.jsp").forward(request, response);
 		}
 
 	}
