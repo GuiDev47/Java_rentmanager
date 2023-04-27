@@ -36,6 +36,15 @@ public class ClientService {
 		}
 	}
 
+	public long update(Client client) throws ServiceException {
+		try{
+			return clientDao.update(client);
+		}catch(DaoException e){
+			e.printStackTrace();
+			throw new ServiceException();
+		}
+	}
+
 	public Client findById(long id) throws ServiceException {
 
 		try{

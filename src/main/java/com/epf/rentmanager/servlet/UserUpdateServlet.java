@@ -3,10 +3,7 @@ package com.epf.rentmanager.servlet;
 import com.epf.rentmanager.Configuration.AppConfiguration;
 import com.epf.rentmanager.Exception.ServiceException;
 import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.ReservationService;
-import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,8 +18,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-@WebServlet("/users/create")
-public class UserCreateServlet extends HttpServlet {
+@WebServlet("/users/update")
+public class UserUpdateServlet extends HttpServlet {
 
     /**
      *
@@ -43,14 +40,22 @@ public class UserCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+        try {
+            long id = Long.parseLong(request.getParameter("id"));
+            request.setAttribute("client", clientService.findById(id));
+        } catch (ServiceException e) {
+            throw new RuntimeException();
+        }
+        finally {
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/update.jsp").forward(request, response);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        Client client = new Client(request.getParameter("last_name"), (request.getParameter("first_name")), request.getParameter("email"), LocalDate.parse(request.getParameter("Date"), formatter));
+        Client client = new Client(Long.parseLong(request.getParameter("id")), request.getParameter("last_name"), (request.getParameter("first_name")), request.getParameter("email"), LocalDate.parse(request.getParameter("Date"), formatter));
         try{
-            clientService.create(client);
+            clientService.update(client);
         }catch (ServiceException e) {
             e.printStackTrace();
         }
