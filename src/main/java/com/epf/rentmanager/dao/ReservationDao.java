@@ -16,6 +16,7 @@ import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -91,10 +92,12 @@ public class ReservationDao {
 
 			int client_id = rs.getInt("client_id");
 			int vehicle_id = rs.getInt("vehicle_id");
+			LocalDate debut = rs.getDate("debut").toLocalDate();
+			LocalDate fin = rs.getDate("fin").toLocalDate();
 
 			connection.close();
 
-			return (new Reservation(id, client_id, vehicle_id));
+			return (new Reservation(id, client_id, vehicle_id, debut, fin));
 
 		}
 		catch(Exception e){
@@ -121,8 +124,10 @@ public class ReservationDao {
 				long id = rs.getLong("id");
 				//String modele = rs.getString("prenom");
 				long vehicle_id = rs.getLong("vehicle_id");
+				LocalDate debut = rs.getDate("debut").toLocalDate();
+				LocalDate fin = rs.getDate("fin").toLocalDate();
 
-				reservationsByClientId.add(new Reservation(id, clientId, vehicle_id));
+				reservationsByClientId.add(new Reservation(id, clientId, vehicle_id, debut, fin));
 			}
 
 
@@ -149,10 +154,11 @@ public class ReservationDao {
 
 				long id = rs.getLong("id");
 				long client_id = rs.getLong("client_id");
-				//String modele = rs.getString("prenom");
+				LocalDate debut = rs.getDate("debut").toLocalDate();
+				LocalDate fin = rs.getDate("fin").toLocalDate();
 
 
-				reservationsByVehicleId.add(new Reservation(id, client_id, vehicleId));
+				reservationsByVehicleId.add(new Reservation(id, client_id, vehicleId, debut, fin));
 			}
 
 
@@ -177,8 +183,10 @@ public class ReservationDao {
 				long id = rs.getLong("id");
 				int client_id = rs.getInt("client_id");
 				int vehicle_id = rs.getInt("vehicle_id");
+				LocalDate debut = rs.getDate("debut").toLocalDate();
+				LocalDate fin = rs.getDate("fin").toLocalDate();
 
-				reservations.add(new Reservation(id, client_id, vehicle_id));
+				reservations.add(new Reservation(id, client_id, vehicle_id, debut, fin));
 
 			}
 

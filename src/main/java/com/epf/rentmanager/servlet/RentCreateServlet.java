@@ -61,7 +61,6 @@ public class RentCreateServlet extends HttpServlet {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 		Reservation resa = new Reservation(Long.parseLong(request.getParameter("client")), Long.parseLong(request.getParameter("car")), LocalDate.parse(request.getParameter("begin"),formatter), LocalDate.parse(request.getParameter("end"),formatter));
-
 		try{
 			reservationService.create(resa);
 		}catch (ServiceException e) {

@@ -48,12 +48,9 @@
                                             <td>${client.prenom} ${client.nom}</td>
                                         </c:if>
                                     </c:forEach>
-                                    <td>${resa.debut}</td>
+                                    <td>${resa.fin}</td>
                                     <td>${resa.fin}</td>
                                     <td>
-                                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/rents/details?id=${resa.ID}">
-                                            <i class="fa fa-play"></i>
-                                        </a>
                                         <a class="btn btn-success" href="${pageContext.request.contextPath}/rents/update?id=${resa.ID}">
                                             <i class="fa fa-edit"></i>
                                         </a>
