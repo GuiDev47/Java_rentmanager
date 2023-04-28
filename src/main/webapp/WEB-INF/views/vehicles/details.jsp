@@ -14,7 +14,7 @@
 
      <section class="content-header">
                 <h1>
-                    Reservations du vehicule :  " ${car.constructeur} - ${car.nb_places} places "
+                    Reservations du vehicule :  " ${car.constructeur} ${car.modele} - ${car.nb_places} places "
                 </h1>
             </section>
 

@@ -2,19 +2,21 @@ package com.epf.rentmanager.model;
 public class Vehicle {
 
     private long ID;
-    private String constructeur;
+    private String constructeur, modele;
     private int nb_places;
     public Vehicle(){
     }
 
-    public Vehicle(long ID, String constructeur, int nb_places) {
+    public Vehicle(long ID, String constructeur, String modele,  int nb_places) {
         this.ID= ID;
         this.constructeur = constructeur;
+        this.modele = modele;
         this.nb_places = nb_places;
     }
 
-    public Vehicle(String constructeur, int nb_places) {
+    public Vehicle(String constructeur, String modele, int nb_places) {
         this.constructeur = constructeur;
+        this.modele = modele;
         this.nb_places = nb_places;
     }
 
@@ -28,6 +30,13 @@ public class Vehicle {
 
     public String getConstructeur() {
         return constructeur;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+    public void setModele(String modele) {
+        this.modele = modele;
     }
 
     public void setConstructeur(String constructeur) {

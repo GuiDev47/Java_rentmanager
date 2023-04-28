@@ -57,7 +57,7 @@
                                                 <td>${resa.ID}</td>
                                                 <c:forEach items="${cars}" var="car">
                                                     <c:if test="${resa.vehicle_id eq car.ID}">
-                                                        <td>${car.constructeur}</td>
+                                                        <td>${car.constructeur} ${car.modele}</td>
                                                     </c:if>
                                                 </c:forEach>
                                                 <td>${resa.debut}</td>
@@ -81,7 +81,7 @@
                                         <c:forEach items="${cars}" var="car">
                                             <tr>
                                                 <td>${car.ID}</td>
-                                                <td>Inconnu</td>
+                                                <td>${car.modele}</td>
                                                 <td>${car.constructeur}</td>
                                                 <td>${car.nb_places}</td>
                                             </tr>
