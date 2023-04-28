@@ -53,21 +53,21 @@
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
                                     <div class="col-sm-10">
-                                        <input type="Date" class="form-control" id="begin" name="begin">
+                                        <input type="Date" id="debut" class="form-control" id="begin" name="begin">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">Date de fin</label>
 
                                     <div class="col-sm-10">
-                                        <input type="Date" class="form-control" id="end" name="end">
+                                        <input type="Date" id="fin" class="form-control" id="end" name="end" onblur='verifTime()'>
 
                                     </div>
                                 </div>
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-info pull-right">Ajouter</button>
+                                <button id = 'Add' type="submit" class="btn btn-info pull-right">Ajouter</button>
                             </div>
                             <!-- /.box-footer -->
                         </form>
@@ -92,6 +92,27 @@
     $(function () {
         $('[data-mask]').inputmask()
     });
+
+    function verifTime(){
+        var debut = document.getElementById('debut').value;
+        var fin = document.getElementById('fin').value;
+        if (debut!="" && fin !=""){
+            debut = new Date(debut);
+            fin = new Date(fin);
+            var diff = fin - debut;
+            var jours = Math.floor(diff / 86400000);
+            console.log
+
+            if(jours>7){
+                document.getElementById('Add').disabled = true;
+                alert("Vous ne pouvez reserver un vehicule 7 jours de suites");
+            }
+            else if(jours<7){
+                document.getElementById('Add').disabled = false;
+            }
+        }
+        }
+
 </script>
 </body>
 </html>

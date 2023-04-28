@@ -43,6 +43,12 @@ public class UserCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+            try {
+                request.setAttribute("clients", clientService.findAll());
+            }catch (ServiceException e) {
+            e.printStackTrace();
+            }
+
             this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
     }
 
